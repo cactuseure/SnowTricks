@@ -1,0 +1,25 @@
+@import "~bootstrap/scss/bootstrap";
+@import "_partials/fonts";
+@import "_partials/header";
+@import "_partials/login_form";
+body {
+    background-color: #7a90dc;
+
+    .temp{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: inherit;
+    }
+    h1{
+        font-size: 12vw;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        font-family: 'DM Sans', sans-serif;
+        color: #fff;
+    }
+}
+
+
