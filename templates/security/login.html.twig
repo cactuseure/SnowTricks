@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <main class="main login_form">
+        <div class="container">
+            <section class="wrapper">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                <div class="heading">
+                    <h1 class="text text-large">Sign In</h1>
+                    <p class="text text-normal">New user? <span><a href="#" class="text text-links">Create an account</a></span>
+                    </p>
+                </div>
+                <form name="signin" class="form" method="post">
+                    <div class="input-control">
+                        <label for="inputUsername" class="input-label" hidden>Username</label>
+                        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="input-field" placeholder="Username"  autocomplete="username" required autofocus>
+                    </div>
+                    <div class="input-control">
+                        <label for="inputPassword" class="input-label" hidden>Password</label>
+                        <input type="password" name="password" id="inputPassword" class="input-field" placeholder="Password">
+                    </div>
+                    <div class="input-control">
+                        <a href="#" class="text text-links">Forgot Password</a>
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            Sign in
+                        </button>
+                    </div>
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                </form>
+            </section>
+        </div>
+    </main>
+{% endblock %}
