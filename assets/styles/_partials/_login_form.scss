@@ -4,11 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 80rem;
-    min-height: 100vh;
+    height: 80vh;
     width: 100%;
-    padding: 0 2rem;
-    margin: 0 auto;
+    margin-bottom: 10vh;
   }
 
   .text {
@@ -112,7 +110,6 @@
 
         &-line {
           flex: auto;
-          flex-basis: auto;
           border: none;
           outline: none;
           height: 2px;
