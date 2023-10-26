@@ -18,16 +18,6 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('getHeaderData', [$this, 'getHeaderData']),
-        ];
-    }
-
-    public function getHeaderData(): array
-    {
-        $isLoggedIn = $this->security->isGranted('IS_AUTHENTICATED_FULLY');
-
-        return [
-            'isLoggedIn' => $isLoggedIn,
         ];
     }
 }
