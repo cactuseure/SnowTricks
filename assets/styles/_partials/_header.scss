@@ -3,24 +3,26 @@ $navbar-link-margin: 8px 15px;
 
 header{
 
+  height: 10vh;
   a{
     color: #fff!important;
 
     &.navbar-brand{
       font-family: 'Darumadrop One', cursive;
-      font-size: 50px;
+      font-size: 2em;
     }
 
   }
   nav {
+    height: 100%;
     #navbarNav{
       justify-content: flex-end;
     }
   }
 
   svg{
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
   }
 
 

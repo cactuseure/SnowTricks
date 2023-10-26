@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -36,6 +38,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Figure::class)]
+    private Collection $figures;
+
+    public function __construct()
+    {
+        $this->figures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +135,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Figure>
+     */
+    public function getFigures(): Collection
+    {
+        return $this->figures;
+    }
+
+    public function addFigure(Figure $figure): static
+    {
+        if (!$this->figures->contains($figure)) {
+            $this->figures->add($figure);
+            $figure->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFigure(Figure $figure): static
+    {
+        if ($this->figures->removeElement($figure)) {
+            // set the owning side to null (unless already changed)
+            if ($figure->getOwner() === $this) {
+                $figure->setOwner(null);
+            }
+        }
 
         return $this;
     }
