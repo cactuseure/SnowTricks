@@ -17,8 +17,7 @@ class FigureController extends AbstractController
     {
     }
 
-
-    #[Route('/figure/new',name: 'app_figure_new')]
+    #[Route('/figure/nouveau',name: 'app_figure_new')]
     #[IsGranted('ROLE_USER')]
     public function newFigure(Request $request): Response
     {
@@ -53,7 +52,6 @@ class FigureController extends AbstractController
         ]);
     }
 
-
     #[Route('/figure/{id}/edit',name: 'app_figure_edit')]
     #[IsGranted('ROLE_USER')]
     public function editFigure(Figure $figure, Request $request): Response
@@ -87,6 +85,22 @@ class FigureController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/figure/{id}/delete',name: 'app_figure_delete')]
+    #[IsGranted('ROLE_USER')]
+    public function delete(Figure $figure): Response
+    {
+        $this->em->remove($figure);
+        $this->em->flush();
+
+        $this->addFlash(
+            'success',
+            'The snowboard trick was deleted'
+        );
+
+        return $this->redirectToRoute('app_home_index');
+    }
+
 
     #[Route('/figure/{slug}', name: 'app_figure_show')]
     public function show(Figure $figure): Response

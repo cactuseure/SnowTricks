@@ -13,9 +13,9 @@
         {% endblock %}
     </head>
     
-    {{ include('header.html.twig') }}
-    
     <body id="{% block body_id %}{% endblock %}" >
+        {{ include('header.html.twig') }}
         {% block body %}{% endblock %}
     </body>
+
 </html>
