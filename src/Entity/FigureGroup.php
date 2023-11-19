@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FigureGroupRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class FigureGroup extends AbstractEntity
 {
     #[ORM\OneToMany(mappedBy: 'figureGroup', targetEntity: Figure::class)]

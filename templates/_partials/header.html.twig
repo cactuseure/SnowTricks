@@ -20,12 +20,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_home_index') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tricks</a>
-                    </li>
-
 
                     {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="openModal" data-bs-toggle="modal" data-bs-target="#chooseEntityModal">Ajouter</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                         </li>
@@ -42,3 +41,22 @@
         </div>
     </nav>
 </header>
+
+
+<div class="modal fade" id="chooseEntityModal" tabindex="-1" aria-labelledby="chooseEntityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chooseEntityModalLabel">Ajouter une entité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <a class="btn btn-light" href="{{ path('app_figure_new') }}">Ajouter une figure</a>
+                <a class="btn btn-light" href="{{ path('app_figure_group_new') }}">Ajouter un groupe de figure</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

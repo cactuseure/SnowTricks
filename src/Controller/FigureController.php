@@ -33,7 +33,7 @@ class FigureController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    'The snowboard trick was created'
+                    'La figure de snowboard a bien été créée'
                 );
 
                 return $this->redirectToRoute('app_figure_new');
@@ -41,7 +41,7 @@ class FigureController extends AbstractController
             } catch (\Exception $e){
                 $this->addFlash(
                     'error',
-                    'The snowboard trick was not created'
+                    'L\'enregistrement de la figure a échoué'
                 );
             }
 
@@ -67,7 +67,7 @@ class FigureController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    'The snowboard trick was modif'
+                    'La figure de snowboard a été modifiée'
                 );
 
                 return $this->redirectToRoute('app_figure_show',['slug'=>$figure->getSlug()]);
@@ -75,7 +75,7 @@ class FigureController extends AbstractController
             } catch (\Exception $e){
                 $this->addFlash(
                     'error',
-                    'The snowboard trick was not created'
+                    'La figure du snowboard n\'a pas été créée'
                 );
             }
 
@@ -95,7 +95,7 @@ class FigureController extends AbstractController
 
         $this->addFlash(
             'success',
-            'The snowboard trick was deleted'
+            'La figure du snowboard a été supprimée'
         );
 
         return $this->redirectToRoute('app_home_index');

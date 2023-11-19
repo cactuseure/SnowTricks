@@ -14,8 +14,12 @@
     </head>
     
     <body id="{% block body_id %}{% endblock %}" >
-        {{ include('header.html.twig') }}
+        {{ include('_partials/header.html.twig') }}
+
+        {{ include('_partials/flash_message.html.twig') }}
+
         {% block body %}{% endblock %}
+
     </body>
 
 </html>
