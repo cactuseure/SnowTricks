@@ -5,6 +5,7 @@
 @import "_partials/home";
 @import "_partials/figure";
 @import "_partials/arrow";
+@import "_partials/form";
 
 body {
     background-color: #7a90dc;
@@ -16,6 +17,8 @@ body {
         height: 100vh;
         color: inherit;
     }
+
+    h1 {
+        color: #fff;
+    }
 }
-
-

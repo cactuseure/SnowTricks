@@ -57,6 +57,9 @@
       background: var(--color-white);
       box-shadow: var(--shadow-large);
 
+      form label {
+        color: #000;
+      }
       .form {
         width: 100%;
         height: auto;
