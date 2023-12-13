@@ -6,6 +6,8 @@ use App\Repository\FigureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: FigureRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -43,8 +45,12 @@ class Figure extends AbstractEntity
     #[ORM\JoinColumn(nullable: false)]
     private ?FigureGroup $figureGroup = null;
 
+    #[ORM\OneToMany(mappedBy: "figure", targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -139,6 +145,24 @@ class Figure extends AbstractEntity
     public function setFigureGroup(?FigureGroup $figureGroup): static
     {
         $this->figureGroup = $figureGroup;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setFigure($this);
+        }
 
         return $this;
     }

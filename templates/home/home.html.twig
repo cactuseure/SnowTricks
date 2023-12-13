@@ -6,12 +6,13 @@
 
 {% block body %}
     <div class="above-the-fold">
-        <img src="{{ asset('/uploads/img/snowtricks_bg.webp') }}">
+        <img src="{{ asset('/uploads/img/snowtricks_bg.webp') }}" alt="">
         <h1>Votre plateforme collaborative pour<br>apprendre, partager et vivre<br>votre passion pour<br>le snowboard!</h1>
-        <div class="arrowBottomCta"></div>
+        <div id="arrowBottomCta" class="arrowBottomCta"></div>
     </div>
 
-    <div class="container">
+    <div class="container" id="tricks-container">
+        <h2>Les Tricks :</h2>
         <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
             {% for figure in figures %}
                 <div class="col mb-4">
@@ -34,7 +35,13 @@
                 </div>
             {% endfor %}
         </div>
+        <div id="scroll-to-top">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
+            </svg>
+        </div>
     </div>
-
+    {% if app.user %}
     {{ include('figure/_partials/delete-modal.html.twig') }}
+    {% endif %}
 {% endblock %}
