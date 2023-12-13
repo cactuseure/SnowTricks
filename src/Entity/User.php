@@ -42,6 +42,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Figure::class)]
     private Collection $figures;
 
+    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+
     public function __construct()
     {
         $this->figures = new ArrayCollection();
@@ -163,6 +167,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($figure->getOwner() === $this) {
                 $figure->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getAuteur() === $this) {
+                $commentaire->setAuteur(null);
             }
         }
 

@@ -1,0 +1,12 @@
+{% for comment in collection.items %}
+    <div class="comment"{% if collection.last_page == collection.page and loop.last %} data-last-item="true"{% endif %}>
+        <div class="comment-author">
+            <img src="https://picsum.photos/200" alt="photo de l'auteur">
+            <span class="name">@{{ comment.getAuteur().getUsername() }}</span>
+        </div>
+        <div class="content">
+            <p>{{ comment.getContenu() }}</p>
+            <span class="timeago">{{ comment.getCreatedAt()|date('d/m/Y H:i') }}</span>
+        </div>
+    </div>
+{% endfor %}
