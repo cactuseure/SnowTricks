@@ -5,6 +5,10 @@
     background: #fff;
     padding: 0;
     border-radius: 30px;
+    @media screen and (max-width: 575px){
+      margin: 5vh 20px 0 20px;
+      width: calc(100% - 40px);
+    }
   }
 
   .figure-top{
@@ -148,6 +152,8 @@
 
             img {
               width: 40px;
+              height: 40px;
+              object-fit: cover;
               border-radius: 100%;
             }
 
@@ -178,6 +184,48 @@
       }
 
 
+    }
+  }
+ .media-lists{
+   padding: 0;
+   margin-bottom: 30px;
+
+   ul {
+     list-style: none;
+   }
+   .trick-image{
+     cursor: pointer;
+     aspect-ratio: 4/3;
+     object-fit: cover;
+   }
+
+   .youtubeVideos{
+     position: relative;
+
+
+     .picto-yt {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%,-50%);
+
+       img{
+         width: 50px;
+         cursor: pointer;
+       }
+     }
+   }
+ }
+  .comment p {
+    color: #000;
+  }
+}
+
+section.tricks {
+  .trick-miniature{
+    img{
+      aspect-ratio: 4/3;
+      object-fit: cover;
     }
   }
 }

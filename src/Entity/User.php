@@ -45,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?MediaObject $avatar = null;
+
 
     public function __construct()
     {
@@ -196,6 +199,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $commentaire->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?MediaObject
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?MediaObject $avatar): static
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg header-desktop">
         <div class="container">
             <a class="navbar-brand" href="{{ path('app_home_index') }}">
                 <svg fill="none" height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +18,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_home_index') }}">Home</a>
+                        <a class="nav-link" href="{{ path('app_home_index') }}">Accueil</a>
                     </li>
 
                     {% if app.user %}
@@ -39,6 +39,19 @@
                 </ul>
             </div>
         </div>
+    </nav>
+
+    <nav class="header-mobile">
+        <ul>
+            <li><a href="{{ path('app_home_index') }}">Accueil</a></li>
+            <li><a href='#' id="openModal" data-bs-toggle="modal" data-bs-target="#chooseEntityModal">Ajouter</a>
+            </li>
+            {% if app.user %}
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
     </nav>
 </header>
 

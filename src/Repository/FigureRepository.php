@@ -45,4 +45,28 @@ class FigureRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    public function findPaginatedTricks(int $limit, int $offset)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return $qb
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTotalTricks(): int
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        return (int) $qb
+            ->select('COUNT(DISTINCT c.id)')
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
