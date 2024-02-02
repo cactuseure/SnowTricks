@@ -29,6 +29,13 @@
       font-size: 2em;
       line-height: 2.2em;
       color: #fff;
+      white-space: nowrap;
+
+      @media screen and (max-width: 767px){
+        font-size: 100%;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 
