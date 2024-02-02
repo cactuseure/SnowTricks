@@ -41,7 +41,6 @@ class FigureGroupController extends AbstractController
                 return $this->redirectToRoute('app_home_index');
 
             } catch (\Exception $e){
-                dump($e);
                 $this->addFlash(
                     'error',
                     'L\'enregistrement du groupe de figure a échoué'

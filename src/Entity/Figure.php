@@ -144,7 +144,6 @@ class Figure extends AbstractEntity
 
     public function addPicture(MediaObject $picture): static
     {
-        dump($picture);
         if (!$this->pictures->contains($picture)) {
             $this->pictures->add($picture);
         }

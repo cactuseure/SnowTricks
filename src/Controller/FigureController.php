@@ -64,7 +64,6 @@ class FigureController extends AbstractController
                 return $this->redirectToRoute('app_figure_new');
 
             } catch (\Exception $e){
-                dump($e);
                 $this->addFlash(
                     'error',
                     'L\'enregistrement de la figure a échoué'
@@ -281,7 +280,6 @@ class FigureController extends AbstractController
             $perPage,
             $page
         );
-        dump($collection);
         return $this->render('/embed/trick_miniature.html.twig', [
             'collection' => $collection,
         ]);
