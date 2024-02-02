@@ -23,16 +23,9 @@ class CommentaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Commentaire::class);
     }
 
-    public function applyCommentPublishedFilter(QueryBuilder $qb): void
-    {
-//        $qb
-//            ->andWhere('c.published = 1');
-    }
-
     public function findPaginatedComments(int $trickId, int $limit, int $offset): array
     {
         $qb = $this->createQueryBuilder('c');
-        $this->applyCommentPublishedFilter($qb);
 
         return $qb
             ->andWhere('c.figure = :trickId')
@@ -47,7 +40,6 @@ class CommentaireRepository extends ServiceEntityRepository
     public function findTotalComments(int $trickId): int
     {
         $qb = $this->createQueryBuilder('c');
-        $this->applyCommentPublishedFilter($qb);
 
         return (int) $qb
             ->select('COUNT(DISTINCT c.id)')

@@ -1,29 +1,39 @@
 $navbar-link-color: #333;
 $navbar-link-margin: 8px 15px;
+.header-mobile{
+  display: none;
+}
+
 
 header{
+  @media screen and (min-width: 992px){
+    height: 10vh;
 
-  height: 10vh;
-  a{
-    color: #fff!important;
 
-    &.navbar-brand{
-      font-family: 'Darumadrop One', cursive;
-      font-size: 2em;
+    a{
+      color: #fff!important;
+
+      &.navbar-brand{
+        font-family: 'Darumadrop One', cursive;
+        font-size: 2em;
+      }
+    }
+
+    nav {
+      height: 100%;
+
+      #navbarNav{
+        justify-content: flex-end;
+      }
+    }
+
+    svg{
+      width: 50px;
+      height: 50px;
     }
 
   }
-  nav {
-    height: 100%;
-    #navbarNav{
-      justify-content: flex-end;
-    }
-  }
 
-  svg{
-    width: 50px;
-    height: 50px;
-  }
 
 
 
@@ -32,3 +42,29 @@ header{
 
 
 
+
+/*@media screen and (max-width: 991px){
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  background: #7a90dc;
+  width: 100%;
+  border-top: 1px solid #fff;
+
+  .header-desktop{
+    //display: none;
+  }
+
+  ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+
+    li{
+      width: calc(100%/3);
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+}*/

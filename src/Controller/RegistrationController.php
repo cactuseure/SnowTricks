@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\MediaObject;
 use App\Entity\User;
 use App\Form\Type\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\File;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -34,13 +37,39 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            try {
+                $file = $form->get('avatar')->getData();
+
+                if ($file instanceof  UploadedFile) {
+                    $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    // Vous pouvez également générer un nom de fichier unique
+//                    $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                    $newFilename = $originalFilename.'-'.uniqid().'.'.$file->guessExtension();
+                    $destinationPath = sprintf('%s/%s', $this->getParameter('uploads_directory'), 'avatar'); // Vous devez définir ce paramètre dans services.yaml
+                    $file->move(
+                        $destinationPath,
+                        $newFilename
+                    );
+
+                    $mediaObject = (new MediaObject())
+                        ->setName($newFilename)
+                        ->setPath($destinationPath)
+                        ->setExtension($file->getExtension())
+                    ;
+                    $user->setAvatar($mediaObject);
+                }
+            } catch (\Exception $e)
+            {
+
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -50,7 +79,7 @@ class RegistrationController extends AbstractController
                 (new TemplatedEmail())
                     ->from(new Address('mail@snowtricks.com', 'SnowTricks'))
                     ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
+                    ->subject('Finaliser votre inscription à SnowTricks ')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
@@ -88,7 +117,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash('success', 'Votre adresse e-mail a été vérifiée.');
 
         return $this->redirectToRoute('app_login');
     }

@@ -26,14 +26,6 @@ class Figure extends AbstractEntity
     #[ORM\Column]
     private ?string $description = null;
 
-    #[ORM\Column(type: 'string')]
-    private ?string $firstImage = null;
-
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
-    private array $images = [];
-
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
-    private array $medias = [];
 
     #[Assert\Valid]
     #[ORM\ManyToOne(inversedBy: 'figures')]
@@ -48,9 +40,20 @@ class Figure extends AbstractEntity
     #[ORM\OneToMany(mappedBy: "figure", targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\ManyToMany(targetEntity: MediaObject::class, cascade: ['persist', 'remove'])]
+    private Collection $pictures;
+
+    #[ORM\Column]
+    private array $youtubeVideos = [];
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MediaObject $cover = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -85,42 +88,6 @@ class Figure extends AbstractEntity
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getFirstImage(): ?string
-    {
-        return $this->firstImage;
-    }
-
-    public function setFirstImage(string $firstImage): self
-    {
-        $this->firstImage = $firstImage;
-
-        return $this;
-    }
-
-    public function getImages(): array
-    {
-        return $this->images;
-    }
-
-    public function setImages(array $images): self
-    {
-        $this->images = $images;
-
-        return $this;
-    }
-
-    public function getMedias(): array
-    {
-        return $this->medias;
-    }
-
-    public function setMedias(array $medias): self
-    {
-        $this->medias = $medias;
 
         return $this;
     }
@@ -163,6 +130,55 @@ class Figure extends AbstractEntity
             $this->commentaires[] = $commentaire;
             $commentaire->setFigure($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MediaObject>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(MediaObject $picture): static
+    {
+        dump($picture);
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(MediaObject $picture): static
+    {
+        $this->pictures->removeElement($picture);
+
+        return $this;
+    }
+
+    public function getYoutubeVideos(): array
+    {
+        return array_unique($this->youtubeVideos);
+    }
+
+    public function setYoutubeVideos(array $youtubeVideos): static
+    {
+        $this->youtubeVideos = $youtubeVideos;
+
+        return $this;
+    }
+
+    public function getCover(): ?MediaObject
+    {
+        return $this->cover;
+    }
+
+    public function setCover(MediaObject $cover): static
+    {
+        $this->cover = $cover;
 
         return $this;
     }

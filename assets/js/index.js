@@ -2,11 +2,22 @@ const $ = require('jquery');
 require('bootstrap');
 
 import './figure/comments.js';
+import './figure/tricksPagination.js';
+import './figure/form.js';
+import './figure/gallery.js';
 
 /** modal figure delete **/
 $('.deleteButton').on('click', function() {
     var figureId = $(this).data('id');
     var url = '/figure/' + figureId + '/delete';
+    $('#deleteConfirm').attr('href', url);
+});
+
+/** modal figure images delete **/
+$('.deleteTrickImgButton').on('click', function() {
+    let figureId = $(this).data('figureId');
+    let mediaObjectId = $(this).data('mediaobjectId');
+    let url = '/figure/' + figureId + '/delete-media/' + mediaObjectId;
     $('#deleteConfirm').attr('href', url);
 });
 
@@ -45,18 +56,14 @@ $(document).ready(function() {
 /** scroll to top **/
 $(document).ready(function() {
     let scrollToTop = $("#scroll-to-top");
-    let footerHeight = 85; // Remplacez cela par la hauteur réelle de votre footer.
-
     // Cacher l'élément au début
     scrollToTop.hide();
 
     // Fonction pour afficher ou masquer l'élément en fonction du défilement
     function toggleScrollToTopVisibility() {
         let scrollPosition = $(window).scrollTop();
-        let windowHeight = $(window).height();
-        let documentHeight = $(document).height();
 
-        if (scrollPosition > 300 && scrollPosition + windowHeight < documentHeight - footerHeight) {
+        if (scrollPosition > 300) {
             scrollToTop.fadeIn();
         } else {
             scrollToTop.fadeOut();
@@ -72,4 +79,5 @@ $(document).ready(function() {
     });
 });
 
-/** load more commentaire **/
+
+

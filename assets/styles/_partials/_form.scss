@@ -2,4 +2,87 @@ form {
   label {
     color: #fff;
   }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    li.trick-image{
+      width: 25%;
+      position: relative;
+
+      .action-trick-image{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 3px 5px;
+        background: #fff;
+        border-radius: 10px;
+        display: flex;
+        gap: 20px;
+        a {
+          line-height: 20px;
+          svg {
+            width: 20px;
+            stroke: red;
+          }
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        width: calc(50% - 10px);
+      }
+
+      @media screen and (max-width: 1024px) and (min-width: 768px){
+        width: calc(100%/3);
+      }
+    }
+    li.youtubeVideos_field {
+      width: 100%;
+    }
+
+
+    &.trick-pictures , &.trick-youtubeVideos{
+
+      li {
+        display: flex;
+        width: 100%;
+        > div{
+          width: 100%;
+          > div {
+            margin-bottom: 0!important;
+
+
+          }
+        }
+
+        > button {
+          height: 38px;
+          text-wrap: nowrap;
+          margin-top: auto;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        input{
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+      }
+    }
+  }
+
+  button.add_item_link {
+margin-bottom: 1rem;
+  }
+
+  small {
+    color: #000!important;
+    margin-bottom: 1rem!important;
+    display: block;
+  }
 }

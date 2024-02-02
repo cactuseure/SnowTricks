@@ -5,11 +5,10 @@
 {% block body_id %}figure{% endblock %}
 
 {% block body %}
-
     <div class="container">
         <div class="figure-top">
             <h1>{{ figure.title }}</h1>
-            <img src="{{ asset(figure.firstImage) }}" alt="Image de la figure">
+            <img src="{{ figure.cover.filePath }}" alt="Image de la figure">
             {% if app.user %}
             <div class="figure-action">
                 <a href="{{ path('app_figure_edit', {'id':figure.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"></path></svg></a>
@@ -18,7 +17,34 @@
             {% endif %}
         </div>
         <div class="figure-content">
-            {{ figure.description }}
+            <div class="media-lists">
+                <ul class="trick-images row row-cols-lg-6 row-cols-md-3 row-cols-2">
+                    {% for mediaObject in figure.pictures %}
+                        <li>
+                            <img class="img-thumbnail trick-image" alt="{{ mediaObject.name }}" src="{{ mediaObject.filePath }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class="trick-videos row row-cols-lg-6 row-cols-md-3 row-cols-2">
+                    {% for youtubeVideo in figure.youtubeVideos %}
+                        <li class="youtubeVideos">
+                            <div class="picto-yt">
+                                <a href="{{ youtubeVideo }}" target="_blank">
+                                    <img alt="icon youtube" class="img-fluid"
+                                         src="{{ asset('/uploads/img/icon-youtube.svg') }}">
+                                </a>
+                            </div>
+                            <img class="img-thumbnail" alt="{{ youtubeVideo }}" src="{{ youtubeVideo|getThumbnail }}">
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="row justify-content-center d-lg-none">
+                    <button class="btn btn-dark w-auto">Voir les médias</button>
+                </div>
+            </div>
+            <div class="description">
+                {{ figure.description }}
+            </div>
             <div class="content-bottom">
                 <div class="figure-group"><span>Groupe :</span><span>{{ figure.figureGroup.name }}</span></div>
                 <div class="figure-date"><span>Crée le :</span><span>{{ figure.createdAt|date('d/m/Y') }}</span></div>
@@ -60,13 +86,13 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-primary" id="load-more-comments">
+
+                    <button class="btn btn-dark" id="load-more-comments">
                         <span class="spinner-border spinner-border-sm spinner" aria-hidden="true" hidden></span>
-                        <span role="status">Load more</span>
+                        <span role="status">Plus de commentaires</span>
                     </button>
                 </div>
             </div>
-
         </div>
     </div>
     {% include('figure/_partials/delete-modal.html.twig') %}

@@ -28,7 +28,6 @@ class FigureListener
         $user = $this->security->getUser();
 
         $object->setOwner($user);
-        $object->setFirstImage('/uploads/figures/defaut.png');
         $slug = $this->slugger->slug($object->getTitle())->lower();
         $object->setSlug($this->makeSlugUnique($slug, $args));
     }
