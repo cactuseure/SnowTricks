@@ -61,7 +61,7 @@ class FigureController extends AbstractController
                     'La figure de snowboard a bien été créée'
                 );
 
-                return $this->redirectToRoute('app_figure_new');
+                return $this->redirectToRoute('app_home_index');
 
             } catch (\Exception $e){
                 $this->addFlash(
