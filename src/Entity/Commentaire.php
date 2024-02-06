@@ -18,8 +18,8 @@ class Commentaire extends AbstractEntity
     #[ORM\JoinColumn(nullable:false)]
     private ?User $auteur;
 
-    #[ORM\ManyToOne(targetEntity:"App\Entity\Figure", inversedBy:"commentaires")]
-    #[ORM\JoinColumn(nullable:false)]
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Figure", inversedBy: "commentaires")]
+    #[ORM\JoinColumn(nullable:false, onDelete: "CASCADE")]
     private $figure;
 
     public function getContenu(): ?string

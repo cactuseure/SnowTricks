@@ -8,8 +8,8 @@ import './figure/gallery.js';
 
 /** modal figure delete **/
 $('.deleteButton').on('click', function() {
-    var figureId = $(this).data('id');
-    var url = '/figure/' + figureId + '/delete';
+    let figureId = $(this).data('id');
+    let url = '/figure/' + figureId + '/delete';
     $('#deleteConfirm').attr('href', url);
 });
 

@@ -32,6 +32,8 @@ function fetchTricks(buttonLoadMore) {
 
             for (const $item of Array.from(contentHTML.children)) {
                 blocContent.append($item);
+
+                addEventOnDelBtn();
                 if ($item.dataset.lastItem === 'true') {
                     buttonLoadMore.disabled = true;
                     buttonLoadMore.querySelector('.spinner').hidden = true;
@@ -58,4 +60,15 @@ function loadTricks() {
 
         fetchTricks(buttonLoadMore);
     })
+}
+
+
+function addEventOnDelBtn(){
+    document.querySelectorAll('.deleteButton').forEach(function(button) {
+        button.addEventListener('click', function() {
+            let figureId = this.getAttribute('data-id');
+            let url = '/figure/' + figureId + '/delete';
+            document.getElementById('deleteConfirm').setAttribute('href', url);
+        });
+    });
 }
